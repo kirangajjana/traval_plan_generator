@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
-from lanchain.prompts import PromptTemplate
+from langchain.prompts import PromptTemplate
 import streamlit as st
 
 
@@ -20,6 +20,7 @@ you should act as an expert in travel planner
 5.you have to provide the types of food use can eat in the tabular form
 6.make sure all the things you have given should be budget friendly and should be based on the {budget}
 7.also suggest the langusge that user can speak on the {city}
+8.at the end we can gice a small thig like this app was made by kiran gajjana in bold letters
 
 ### **output format **
 -use bullet point for clarity
@@ -30,15 +31,19 @@ you should act as an expert in travel planner
 prompttemplate=PromptTemplate(input_variables=["city","month","budget","travel"],template=templates)
 
 st.title("Budget Travel planner")
-st.balloons()
 
-city=st.text_input("please enter the city name you want to travel")
-month=st.text_input("please enter the month you wanted to travel")
-budget=st.text_input("please enter the budget you want to invest for the travel")
-travel=st.selectbox("High","Medium","Small")
+
+city=st.text_input("Please Enter the City Name you want to travel")
+month=st.text_input("Please Enter the Month you wanted to Travel")
+budget=st.text_input("Please Enter the Budget you want to Invest for the Travel")
+options = ["High", "Medium", "Small"]
+
+# Create a selectbox with the options list
+travel = st.selectbox("Select travel size:", options)
 
 
 
 if st.button("Submit"):
     response=llm.invoke(prompttemplate.format(city=city,budget=budget,month=month,travel=travel))
     st.write(response.content)
+    st.balloons()
