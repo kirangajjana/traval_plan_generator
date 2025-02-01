@@ -5,6 +5,7 @@ from lanchain.prompts import PromptTemplate
 import streamlit as st
 
 
+
 load_dotenv()
 
 apikey=os.getenv("gemini")
@@ -32,6 +33,11 @@ st.title("Budget Travel planner")
 st.balloons()
 
 city=st.text_input("please enter the city name you want to travel")
+month=st.text_input("please enter the month you wanted to travel")
+budget=st.text_input("please enter the budget you want to invest for the travel")
+travel=st.selectbox("High","Medium","Small")
+
+
 
 if st.button("Submit"):
     response=llm.invoke(prompttemplate.format(city=city,budget=budget,month=month,travel=travel))
